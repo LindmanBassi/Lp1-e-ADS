@@ -4,6 +4,8 @@ import br.com.bassi.TrabalhoFaculLP1.e.A.dto.EventoDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,6 +17,10 @@ public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private boolean isRemoto;
+    private Date data;
+    private String descricao;
+    private String titulo;
     private String nome;
     @ManyToOne
     @JoinColumn(name = "local_id")
@@ -23,5 +29,9 @@ public class Evento {
     public Evento(EventoDTO eventoDTO) {
         this.nome = eventoDTO.nome();
         this.local = eventoDTO.local();
+        this.data = eventoDTO.data();
+        this.isRemoto = eventoDTO.isRemoto();
+        this.titulo = eventoDTO.titulo();
+        this.descricao = eventoDTO.descricao();
     }
 }

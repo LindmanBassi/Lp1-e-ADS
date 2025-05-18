@@ -44,6 +44,10 @@ public class EventoService {
             Evento evento = eventoOptional.get();
             evento.setNome(eventoDTO.nome());
             evento.setLocal(eventoDTO.local());
+            evento.setData(eventoDTO.data());
+            evento.setRemoto(evento.isRemoto());
+            evento.setTitulo(eventoDTO.titulo());
+            evento.setDescricao(eventoDTO.descricao());
            return eventoRepository.save(evento);
         }
         else{
