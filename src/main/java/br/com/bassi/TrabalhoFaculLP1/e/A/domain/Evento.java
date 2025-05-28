@@ -20,6 +20,7 @@ public class Evento {
     private Date data;
     private String descricao;
     private String titulo;
+
     private String nome;
     @ManyToOne
     @JoinColumn(name = "local_id")

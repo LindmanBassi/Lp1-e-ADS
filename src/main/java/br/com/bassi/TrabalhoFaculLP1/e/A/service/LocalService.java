@@ -39,6 +39,8 @@ public class LocalService {
             Local local = localOptional.get();
             local.setNome(localDTO.nome());
             local.setEndereco(localDTO.endereco());
+            local.setCapacidade(localDTO.capacidade());
+            local.setNumPessoasPadrao(localDTO.numPessoasPadrao());
             return localRepository.save(local);
         }
         else{
