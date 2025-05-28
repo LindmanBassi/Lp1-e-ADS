@@ -1,11 +1,8 @@
 package br.com.bassi.TrabalhoFaculLP1.e.A.infra;
 
-
-
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-
 import java.security.Key;
 import java.util.Date;
 
@@ -25,7 +22,7 @@ public class JwtUtil {
 
     public String validarToken(String token) {
         try {
-            return Jwts.parserBuilder() // <- Disponível com as dependências certas
+            return Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token)

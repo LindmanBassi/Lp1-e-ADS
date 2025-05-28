@@ -6,7 +6,6 @@ import br.com.bassi.TrabalhoFaculLP1.e.A.infra.JwtUtil;
 import br.com.bassi.TrabalhoFaculLP1.e.A.repositories.FuncionarioRepository;
 import br.com.bassi.TrabalhoFaculLP1.e.A.repositories.PessoaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +36,6 @@ public class AuthService {
             }
             return jwtUtil.gerarToken(p.getEmail());
         }
-
         throw new RuntimeException("Usuário não encontrado");
     }
 }

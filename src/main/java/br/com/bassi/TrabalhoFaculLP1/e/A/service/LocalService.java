@@ -1,14 +1,10 @@
 package br.com.bassi.TrabalhoFaculLP1.e.A.service;
 
-import br.com.bassi.TrabalhoFaculLP1.e.A.domain.Evento;
 import br.com.bassi.TrabalhoFaculLP1.e.A.domain.Local;
-import br.com.bassi.TrabalhoFaculLP1.e.A.dto.EventoDTO;
 import br.com.bassi.TrabalhoFaculLP1.e.A.dto.LocalDTO;
-import br.com.bassi.TrabalhoFaculLP1.e.A.repositories.EventoRepository;
 import br.com.bassi.TrabalhoFaculLP1.e.A.repositories.LocalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 

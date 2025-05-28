@@ -1,8 +1,6 @@
 package br.com.bassi.TrabalhoFaculLP1.e.A.controller;
 
-import br.com.bassi.TrabalhoFaculLP1.e.A.domain.Pessoa;
 import br.com.bassi.TrabalhoFaculLP1.e.A.dto.LoginRequest;
-import br.com.bassi.TrabalhoFaculLP1.e.A.infra.JwtUtil;
 import br.com.bassi.TrabalhoFaculLP1.e.A.service.PessoaService;
 import br.com.bassi.TrabalhoFaculLP1.e.A.service.AuthService;
 import br.com.bassi.TrabalhoFaculLP1.e.A.dto.PessoaDTO;
@@ -12,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor

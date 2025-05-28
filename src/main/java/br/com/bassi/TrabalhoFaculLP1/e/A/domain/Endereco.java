@@ -1,7 +1,6 @@
 package br.com.bassi.TrabalhoFaculLP1.e.A.domain;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
 import lombok.*;
 
 @Getter

@@ -1,4 +1,3 @@
-// Funcionario.java
 package br.com.bassi.TrabalhoFaculLP1.e.A.domain;
 
 import br.com.bassi.TrabalhoFaculLP1.e.A.domain.enuns.EnumCargos;
@@ -6,7 +5,7 @@ import br.com.bassi.TrabalhoFaculLP1.e.A.domain.enuns.EnumDepartamento;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+@Entity(name = "Funcionario")
 @Table(name = "funcionarios")
 @Getter
 @Setter

@@ -1,14 +1,11 @@
 package br.com.bassi.TrabalhoFaculLP1.e.A.controller;
 
-import br.com.bassi.TrabalhoFaculLP1.e.A.domain.Evento;
 import br.com.bassi.TrabalhoFaculLP1.e.A.domain.Local;
-import br.com.bassi.TrabalhoFaculLP1.e.A.dto.EventoDTO;
 import br.com.bassi.TrabalhoFaculLP1.e.A.dto.LocalDTO;
 import br.com.bassi.TrabalhoFaculLP1.e.A.service.LocalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
