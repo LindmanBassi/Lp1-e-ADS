@@ -6,7 +6,6 @@ import br.com.bassi.trabalho_facu_lp1.service.LocalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;

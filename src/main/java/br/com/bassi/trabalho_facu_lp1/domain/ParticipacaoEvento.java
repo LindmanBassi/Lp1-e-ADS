@@ -3,7 +3,7 @@ package br.com.bassi.trabalho_facu_lp1.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+@Entity(name= "Partipacoes-Evento")
 @Table(name = "participacoes_evento")
 @Getter
 @Setter
@@ -20,6 +20,7 @@ public class ParticipacaoEvento {
     @JoinColumn(name = "evento_id", nullable = false)
     private Evento evento;
 
-    private Long pessoaId;
-    private boolean funcionario;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 }

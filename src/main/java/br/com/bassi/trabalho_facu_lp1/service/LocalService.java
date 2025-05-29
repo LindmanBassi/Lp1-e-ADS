@@ -11,6 +11,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class LocalService {
+
     private final LocalRepository localRepository;
 
     public Local criarLocal(LocalDTO localDTO){
@@ -37,7 +38,6 @@ public class LocalService {
             local.setNome(localDTO.nome());
             local.setEndereco(localDTO.endereco());
             local.setCapacidade(localDTO.capacidade());
-            local.setNumPessoasPadrao(localDTO.numPessoasPadrao());
             return localRepository.save(local);
         } else {
             throw new RuntimeException("Local nao encontrado");

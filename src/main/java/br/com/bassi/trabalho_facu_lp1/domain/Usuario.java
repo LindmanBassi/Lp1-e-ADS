@@ -5,13 +5,13 @@ import br.com.bassi.trabalho_facu_lp1.domain.enuns.EnumDepartamento;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "Funcionario")
-@Table(name = "funcionarios")
+@Entity(name = "Usuario")
+@Table(name = "usuarios")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Funcionario {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,11 @@ public class Funcionario {
 
     private String nome;
 
-    @Enumerated(EnumType.STRING)
-    private EnumDepartamento departamento;
+    private Boolean isFuncionario;
 
     @Enumerated(EnumType.STRING)
     private EnumCargos cargo;
+
+    @Enumerated(EnumType.STRING)
+    private EnumDepartamento departamento;
 }

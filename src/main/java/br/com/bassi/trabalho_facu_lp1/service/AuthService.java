@@ -1,10 +1,7 @@
 package br.com.bassi.trabalho_facu_lp1.service;
 
-import br.com.bassi.trabalho_facu_lp1.domain.Funcionario;
-import br.com.bassi.trabalho_facu_lp1.domain.Pessoa;
 import br.com.bassi.trabalho_facu_lp1.infra.JwtUtil;
-import br.com.bassi.trabalho_facu_lp1.repositories.FuncionarioRepository;
-import br.com.bassi.trabalho_facu_lp1.repositories.PessoaRepository;
+import br.com.bassi.trabalho_facu_lp1.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,29 +10,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final FuncionarioRepository funcionarioRepository;
-    private final PessoaRepository pessoaRepository;
+    private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder encoder;
     private final JwtUtil jwtUtil;
 
     public String autenticar(String email, String senha) {
-        var funcionarioOpt = funcionarioRepository.findByEmail(email);
-        if (funcionarioOpt.isPresent()) {
-            Funcionario f = funcionarioOpt.get();
-            if (!encoder.matches(senha, f.getSenha())) {
+        var usuarioOpt = usuarioRepository.findByEmail(email);
+        if (usuarioOpt.isPresent()) {
+            var usuario = usuarioOpt.get();
+            if (!encoder.matches(senha, usuario.getSenha())) {
                 throw new RuntimeException("Senha inválida");
             }
-            return jwtUtil.gerarToken(f.getEmail());
-        }
-
-        var pessoaOpt = pessoaRepository.findByEmail(email);
-        if (pessoaOpt.isPresent()) {
-            Pessoa p = pessoaOpt.get();
-            if (!encoder.matches(senha, p.getSenha())) {
-                throw new RuntimeException("Senha inválida");
-            }
-            return jwtUtil.gerarToken(p.getEmail());
+            return jwtUtil.gerarToken(usuario.getEmail());
         }
         throw new RuntimeException("Usuário não encontrado");
     }
 }
+
