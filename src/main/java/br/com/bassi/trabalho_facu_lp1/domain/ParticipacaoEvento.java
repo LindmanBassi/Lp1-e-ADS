@@ -18,9 +18,9 @@ public class ParticipacaoEvento {
 
     @OneToOne
     @JoinColumn(name = "evento_id", nullable = false)
-    private Evento evento;
+    private Evento eventoId;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    private Usuario usuarioId;
 }

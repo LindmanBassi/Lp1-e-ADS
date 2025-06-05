@@ -1,4 +1,4 @@
 package br.com.bassi.trabalho_facu_lp1.dto;
 
-public record EnderecoDTO(String cidade, String estado,String rua, String bairro, int numero){
-}
+public record EnderecoDTO(
+        String rua, String bairro, String cidade, String estado, int numero, String cep) {}

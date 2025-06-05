@@ -42,8 +42,8 @@ public class LocalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Local> editarLocal(@PathVariable Long id, @RequestBody LocalDTO localDTO) {
-        var local = localService.editarLocal(id, localDTO);
-        return ResponseEntity.ok().build();
+        public ResponseEntity<Local> editarLocal (@PathVariable Long id, @RequestBody LocalDTO localDTO){
+            var local = localService.editarLocal(id, localDTO);
+            return ResponseEntity.ok(local);
+        }
     }
-}
