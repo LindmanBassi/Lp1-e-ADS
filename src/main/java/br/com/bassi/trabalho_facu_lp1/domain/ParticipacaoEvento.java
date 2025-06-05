@@ -16,7 +16,7 @@ public class ParticipacaoEvento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "evento_id", nullable = false)
     private Evento evento;
 

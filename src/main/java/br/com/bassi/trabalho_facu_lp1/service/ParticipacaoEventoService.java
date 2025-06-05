@@ -4,7 +4,7 @@ import br.com.bassi.trabalho_facu_lp1.domain.Evento;
 import br.com.bassi.trabalho_facu_lp1.domain.ParticipacaoEvento;
 import br.com.bassi.trabalho_facu_lp1.domain.Usuario;
 import br.com.bassi.trabalho_facu_lp1.dto.ParticipacaoEventoDTO;
-import br.com.bassi.trabalho_facu_lp1.dto.UsuarioDTO;
+import br.com.bassi.trabalho_facu_lp1.dto.FuncionarioDTO;
 import br.com.bassi.trabalho_facu_lp1.repositories.EventoRepository;
 import br.com.bassi.trabalho_facu_lp1.repositories.ParticipacaoEventoRepository;
 import br.com.bassi.trabalho_facu_lp1.repositories.UsuarioRepository;
@@ -41,7 +41,7 @@ public class ParticipacaoEventoService {
         evento.setVagas(evento.getVagas() - 1);
         eventoRepository.save(evento);
     }
-    public List<UsuarioDTO> listarUsuariosPorEvento(Long eventoId) {
+    public List<FuncionarioDTO> listarUsuariosPorEvento(Long eventoId) {
         Evento evento = eventoRepository.findById(eventoId)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
@@ -51,7 +51,7 @@ public class ParticipacaoEventoService {
                 .collect(Collectors.toList());
 
         return usuarios.stream()
-                .map(usuario -> new UsuarioDTO(
+                .map(usuario -> new FuncionarioDTO(
                         usuario.getNome(),
                         usuario.getEmail(),
                         usuario.getSenha(),

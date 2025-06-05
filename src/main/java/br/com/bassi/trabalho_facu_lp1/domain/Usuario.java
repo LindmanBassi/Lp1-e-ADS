@@ -23,7 +23,8 @@ public class Usuario {
 
     private String nome;
 
-    private Boolean isFuncionario;
+    private String cpf;
+
 
     @Enumerated(EnumType.STRING)
     private EnumCargos cargo;

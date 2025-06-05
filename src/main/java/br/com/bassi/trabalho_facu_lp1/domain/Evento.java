@@ -1,5 +1,7 @@
 package br.com.bassi.trabalho_facu_lp1.domain;
 
+import br.com.bassi.trabalho_facu_lp1.domain.enuns.EnumEstadoEvento;
+import br.com.bassi.trabalho_facu_lp1.domain.enuns.EnumTipoEvento;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
@@ -17,7 +19,11 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean isRemoto;
+    @Enumerated(EnumType.STRING)
+    private EnumTipoEvento tipoEvento;
+
+    @Enumerated(EnumType.STRING)
+    private EnumEstadoEvento estadoEvento;
 
     private Date data;
 

@@ -1,7 +1,7 @@
 package br.com.bassi.trabalho_facu_lp1.controller;
 
 import br.com.bassi.trabalho_facu_lp1.dto.ParticipacaoEventoDTO;
-import br.com.bassi.trabalho_facu_lp1.dto.UsuarioDTO;
+import br.com.bassi.trabalho_facu_lp1.dto.FuncionarioDTO;
 import br.com.bassi.trabalho_facu_lp1.service.ParticipacaoEventoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +23,8 @@ public class ParticipacaoEventoController {
         return ResponseEntity.ok().build();
     }
     @GetMapping("/{eventoId}/usuarios")
-    public ResponseEntity<List<UsuarioDTO>> listarUsuariosPorEvento(@PathVariable Long eventoId) {
-        List<UsuarioDTO> usuarios = service.listarUsuariosPorEvento(eventoId);
+    public ResponseEntity<List<FuncionarioDTO>> listarUsuariosPorEvento(@PathVariable Long eventoId) {
+        List<FuncionarioDTO> usuarios = service.listarUsuariosPorEvento(eventoId);
         return ResponseEntity.ok(usuarios);
     }
 }

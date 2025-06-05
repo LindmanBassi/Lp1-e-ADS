@@ -5,5 +5,6 @@ public enum EnumCargos {
     ANALISTA,
     ESTAGIARIO,
     COORDENADOR,
-    APRENDIZ
+    APRENDIZ,
+    VISITANTE
 }

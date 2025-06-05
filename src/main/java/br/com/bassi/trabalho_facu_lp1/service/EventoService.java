@@ -26,12 +26,13 @@ public class EventoService {
 
         evento.setNome(dto.nome());
         evento.setData(dto.data());
-        evento.setRemoto(dto.isRemoto());
+        evento.setEstadoEvento(dto.estadoEvento());
+        evento.setTipoEvento(dto.tipoEvento());
         evento.setTitulo(dto.titulo());
         evento.setDescricao(dto.descricao());
         evento.setVagas(dto.vagas());
 
-        if (!dto.isRemoto()) {
+        if (dto.tipoEvento().equals("REMOTO")) {
             Local local = localRepository.findById(dto.localId())
                     .orElseThrow(() -> new RuntimeException("Local não encontrado"));
             evento.setLocal(local);
@@ -58,11 +59,15 @@ public class EventoService {
     }
 
     public Evento editarEvento(Long id, EventoDTO eventoDTO) {
+        if(eventoDTO.estadoEvento().equals("FECHADO")){
+            throw new RuntimeException("Evento já foi fechado!");
+        }
         Evento evento = eventoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
         evento.setNome(eventoDTO.nome());
-        evento.setRemoto(eventoDTO.isRemoto());
+        evento.setTipoEvento(eventoDTO.tipoEvento());
+        evento.setEstadoEvento(eventoDTO.estadoEvento());
         evento.setData(eventoDTO.data());
         evento.setTitulo(eventoDTO.titulo());
         evento.setDescricao(eventoDTO.descricao());
@@ -74,7 +79,7 @@ public class EventoService {
             evento.setPalestrante(palestrante);
         }
 
-        if (eventoDTO.isRemoto()) {
+        if (eventoDTO.tipoEvento().equals("REMOTO")) {
             evento.setLocal(null);
         } else {
             if (eventoDTO.localId() != null) {

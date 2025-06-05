@@ -1,8 +1,10 @@
 package br.com.bassi.trabalho_facu_lp1.controller;
 
 import br.com.bassi.trabalho_facu_lp1.dto.LoginRequest;
+import br.com.bassi.trabalho_facu_lp1.dto.FuncionarioDTO;
 import br.com.bassi.trabalho_facu_lp1.dto.UsuarioDTO;
 import br.com.bassi.trabalho_facu_lp1.service.AuthService;
+import br.com.bassi.trabalho_facu_lp1.service.FuncionarioService;
 import br.com.bassi.trabalho_facu_lp1.service.UsuarioService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,11 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UsuarioService usuarioService;
+    private final FuncionarioService funcionarioService;
     private final AuthService authService;
+    private final UsuarioService usuarioService;
 
+    @PostMapping("/cadastro/funcionario")
+    public ResponseEntity<String> cadastrarFuncionario(@RequestBody FuncionarioDTO dto) {
+        funcionarioService.cadastrarFuncionario(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Cadastro realizado com sucesso");
+    }
     @PostMapping("/cadastro")
-    public ResponseEntity<String> cadastrar(@RequestBody UsuarioDTO dto) {
+    public ResponseEntity<String> cadastrarUsuario(@RequestBody UsuarioDTO dto) {
         usuarioService.cadastrarUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Cadastro realizado com sucesso");
     }
