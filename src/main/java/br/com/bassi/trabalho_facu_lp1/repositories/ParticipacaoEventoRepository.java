@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ParticipacaoEventoRepository extends JpaRepository<ParticipacaoEvento, Long> {
-    int countByEvento(Evento evento);
-    List<ParticipacaoEvento> findByEvento(Evento evento);
+    int countByEventoId(Evento evento);
+    List<ParticipacaoEvento> findByEventoId(Evento evento);
 
 
 

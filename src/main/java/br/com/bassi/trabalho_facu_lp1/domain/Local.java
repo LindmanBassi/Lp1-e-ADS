@@ -24,10 +24,6 @@ public class Local {
     @Embedded
     private Endereco endereco;
 
-    public Local(LocalDTO localDTO) {
-        this.nome = localDTO.nome();
-        this.endereco = localDTO.endereco();
-        this.capacidade = localDTO.capacidade();
-    }
+
 }
 

@@ -3,6 +3,8 @@ package br.com.bassi.trabalho_facu_lp1.service;
 import br.com.bassi.trabalho_facu_lp1.domain.Evento;
 import br.com.bassi.trabalho_facu_lp1.domain.Local;
 import br.com.bassi.trabalho_facu_lp1.domain.Usuario;
+import br.com.bassi.trabalho_facu_lp1.domain.enuns.EnumEstadoEvento;
+import br.com.bassi.trabalho_facu_lp1.domain.enuns.EnumTipoEvento;
 import br.com.bassi.trabalho_facu_lp1.dto.EventoDTO;
 import br.com.bassi.trabalho_facu_lp1.repositories.EventoRepository;
 import br.com.bassi.trabalho_facu_lp1.repositories.LocalRepository;
@@ -32,7 +34,7 @@ public class EventoService {
         evento.setDescricao(dto.descricao());
         evento.setVagas(dto.vagas());
 
-        if (dto.tipoEvento().equals("REMOTO")) {
+        if (dto.tipoEvento()== EnumTipoEvento.REMOTO) {
             Local local = localRepository.findById(dto.localId())
                     .orElseThrow(() -> new RuntimeException("Local não encontrado"));
             evento.setLocal(local);
@@ -59,7 +61,7 @@ public class EventoService {
     }
 
     public Evento editarEvento(Long id, EventoDTO eventoDTO) {
-        if(eventoDTO.estadoEvento().equals("FECHADO")){
+        if(eventoDTO.estadoEvento()== EnumEstadoEvento.FECHADO){
             throw new RuntimeException("Evento já foi fechado!");
         }
         Evento evento = eventoRepository.findById(id)
@@ -79,7 +81,7 @@ public class EventoService {
             evento.setPalestrante(palestrante);
         }
 
-        if (eventoDTO.tipoEvento().equals("REMOTO")) {
+        if (eventoDTO.tipoEvento() == EnumTipoEvento.REMOTO) {
             evento.setLocal(null);
         } else {
             if (eventoDTO.localId() != null) {
