@@ -1,6 +1,6 @@
-package br.com.bassi.trabalho_facu_lp1.dto;
+    package br.com.bassi.trabalho_facu_lp1.dto;
 
-import br.com.bassi.trabalho_facu_lp1.domain.enuns.EnumCargos;
+    import br.com.bassi.trabalho_facu_lp1.domain.enuns.EnumCargos;
 
-public record UsuarioDTO(String email, String senha, String nome, String cpf, EnumCargos cargos) {
-}
+    public record UsuarioDTO(String email, String senha, String nome, String cpf) {
+    }

@@ -15,15 +15,14 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     public String autenticar(String email, String senha) {
-        var usuarioOpt = usuarioRepository.findByEmail(email);
-        if (usuarioOpt.isPresent()) {
-            var usuario = usuarioOpt.get();
-            if (!encoder.matches(senha, usuario.getSenha())) {
-                throw new RuntimeException("Senha inválida");
-            }
-            return jwtUtil.gerarToken(usuario.getEmail());
+        var usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Credenciais inválidas"));
+
+        if (!encoder.matches(senha, usuario.getSenha())) {
+            throw new RuntimeException("Credenciais inválidas");
         }
-        throw new RuntimeException("Usuário não encontrado");
+
+        return jwtUtil.gerarToken(usuario.getEmail(), usuario.getCargo().name());
     }
 }
 
