@@ -50,4 +50,8 @@ public class EventoController {
         var evento = eventoService.editarEvento(id, eventoDTO);
         return ResponseEntity.ok(evento);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6984d858 (Minhas alterações locais antes do pull)
 }
