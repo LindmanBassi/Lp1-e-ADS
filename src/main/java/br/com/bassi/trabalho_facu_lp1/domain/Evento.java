@@ -31,8 +31,6 @@ public class Evento {
 
     private String titulo;
 
-    private String nome;
-
     private int vagas;
 
     @ManyToOne

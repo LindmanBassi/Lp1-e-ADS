@@ -50,7 +50,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/cadastrar-funcionario")
+    @PostMapping("/cadastrar-gerente")
     public ResponseEntity<Void> cadastrarFuncionario2(@RequestBody FuncionarioDTO dto) {
         funcionarioService.cadastrarFuncionario(dto);
         return ResponseEntity.ok().build();

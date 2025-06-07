@@ -22,8 +22,8 @@ public class ParticipacaoEventoService {
     private final UsuarioRepository usuarioRepository;
 
     public void adicionarParticipante(ParticipacaoEventoDTO dto) {
-        Evento evento = eventoRepository.findByNome(dto.nomeEvento())
-                .orElseThrow(() -> new RuntimeException("Evento não encontrado com nome: " + dto.nomeEvento()));
+        Evento evento = eventoRepository.findByTitulo(dto.tituloEvento())
+                .orElseThrow(() -> new RuntimeException("Evento não encontrado com nome: " + dto.tituloEvento()));
 
         Usuario usuario = usuarioRepository.findByCpf(dto.cpfUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com CPF: " + dto.cpfUsuario()));

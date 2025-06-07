@@ -11,6 +11,8 @@ import br.com.bassi.trabalho_facu_lp1.repositories.LocalRepository;
 import br.com.bassi.trabalho_facu_lp1.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,19 +24,22 @@ public class EventoService {
     private final LocalRepository localRepository;
     private final UsuarioRepository usuarioRepository;
 
-
     public Evento criarEvento(EventoDTO dto) {
         Evento evento = new Evento();
 
-        evento.setNome(dto.nome());
         evento.setData(dto.data());
-        evento.setEstadoEvento(dto.estadoEvento());
-        evento.setTipoEvento(dto.tipoEvento());
         evento.setTitulo(dto.titulo());
         evento.setDescricao(dto.descricao());
         evento.setVagas(dto.vagas());
+        evento.setTipoEvento(dto.tipoEvento());
 
-        if (dto.tipoEvento()== EnumTipoEvento.REMOTO) {
+        if (dto.data().before(new Date())) {
+            evento.setEstadoEvento(EnumEstadoEvento.FECHADO);
+        } else {
+            evento.setEstadoEvento(dto.estadoEvento() != null ? dto.estadoEvento() : EnumEstadoEvento.ABERTO);
+        }
+
+        if (dto.tipoEvento() != EnumTipoEvento.REMOTO && dto.localId() != null) {
             Local local = localRepository.findById(dto.localId())
                     .orElseThrow(() -> new RuntimeException("Local não encontrado"));
             evento.setLocal(local);
@@ -47,50 +52,63 @@ public class EventoService {
         return eventoRepository.save(evento);
     }
 
-
     public void deletarEvento(Long id) {
         eventoRepository.deleteById(id);
     }
 
     public Optional<Evento> buscarEvento(Long id) {
-        return eventoRepository.findById(id);
+        Optional<Evento> eventoOpt = eventoRepository.findById(id);
+        eventoOpt.ifPresent(this::atualizarEstadoSeNecessario);
+        return eventoOpt;
     }
 
     public List<Evento> listarEventos() {
-        return eventoRepository.findAll();
+        List<Evento> eventos = eventoRepository.findAll();
+        eventos.forEach(this::atualizarEstadoSeNecessario);
+        return eventos;
     }
 
-    public Evento editarEvento(Long id, EventoDTO eventoDTO) {
-        if(eventoDTO.estadoEvento()== EnumEstadoEvento.FECHADO){
-            throw new RuntimeException("Evento já foi fechado!");
-        }
+    public Evento editarEvento(Long id, EventoDTO dto) {
         Evento evento = eventoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
-        evento.setNome(eventoDTO.nome());
-        evento.setTipoEvento(eventoDTO.tipoEvento());
-        evento.setEstadoEvento(eventoDTO.estadoEvento());
-        evento.setData(eventoDTO.data());
-        evento.setTitulo(eventoDTO.titulo());
-        evento.setDescricao(eventoDTO.descricao());
-        evento.setVagas(eventoDTO.vagas());
+        if (evento.getEstadoEvento() == EnumEstadoEvento.FECHADO) {
+            throw new RuntimeException("Evento já foi fechado e não pode ser alterado.");
+        }
 
-        if (eventoDTO.palestranteId() != null) {
-            Usuario palestrante = usuarioRepository.findById(eventoDTO.palestranteId())
+        evento.setData(dto.data());
+        evento.setTitulo(dto.titulo());
+        evento.setDescricao(dto.descricao());
+        evento.setVagas(dto.vagas());
+        evento.setTipoEvento(dto.tipoEvento());
+
+        if (dto.data().before(new Date())) {
+            evento.setEstadoEvento(EnumEstadoEvento.FECHADO);
+        } else {
+            evento.setEstadoEvento(dto.estadoEvento() != null ? dto.estadoEvento() : EnumEstadoEvento.ABERTO);
+        }
+
+        if (dto.palestranteId() != null) {
+            Usuario palestrante = usuarioRepository.findById(dto.palestranteId())
                     .orElseThrow(() -> new RuntimeException("Palestrante não encontrado"));
             evento.setPalestrante(palestrante);
         }
 
-        if (eventoDTO.tipoEvento() == EnumTipoEvento.REMOTO) {
+        if (dto.tipoEvento() == EnumTipoEvento.REMOTO) {
             evento.setLocal(null);
-        } else {
-            if (eventoDTO.localId() != null) {
-                Local local = localRepository.findById(eventoDTO.localId())
-                        .orElseThrow(() -> new RuntimeException("Local não encontrado"));
-                evento.setLocal(local);
-            }
+        } else if (dto.localId() != null) {
+            Local local = localRepository.findById(dto.localId())
+                    .orElseThrow(() -> new RuntimeException("Local não encontrado"));
+            evento.setLocal(local);
         }
+
         return eventoRepository.save(evento);
     }
 
+    private void atualizarEstadoSeNecessario(Evento evento) {
+        if (evento.getData().before(new Date()) && evento.getEstadoEvento() != EnumEstadoEvento.FECHADO) {
+            evento.setEstadoEvento(EnumEstadoEvento.FECHADO);
+            eventoRepository.save(evento);
+        }
+    }
 }

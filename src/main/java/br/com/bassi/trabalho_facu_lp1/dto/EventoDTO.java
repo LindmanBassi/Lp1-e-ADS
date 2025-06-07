@@ -5,5 +5,5 @@ import br.com.bassi.trabalho_facu_lp1.domain.enuns.EnumTipoEvento;
 
 import java.util.Date;
 
-public record EventoDTO(String nome, Long localId, EnumEstadoEvento estadoEvento, EnumTipoEvento tipoEvento, Date data, String titulo, String descricao, int vagas, Long palestranteId) {
+public record EventoDTO(Long localId, EnumEstadoEvento estadoEvento, EnumTipoEvento tipoEvento, Date data, String titulo, String descricao, int vagas, Long palestranteId) {
 }
