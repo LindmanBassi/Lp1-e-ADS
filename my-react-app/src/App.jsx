@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
-import EventosPage from './components/EventosComponent';
+import EventosPage from './pages/EventosPage';
 
 function App() {
   return (

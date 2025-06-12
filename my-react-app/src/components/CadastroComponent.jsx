@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { cadastrarUsuario } from '../api/cadastroApi';
 
 function CadastroComponent() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [cpf, setCpf] = useState('');
   const [erro, setErro] = useState('');
   const [sucesso, setSucesso] = useState('');
 
@@ -19,27 +21,15 @@ function CadastroComponent() {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/auth/cadastro', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome,
-          email,
-          senha,
-          isFuncionario: false,
-        }),
-      });
-      if (response.ok) {
-        setSucesso('Conta criada com sucesso! Faça login.');
-        setNome('');
-        setEmail('');
-        setSenha('');
-        setConfirmarSenha('');
-      } else {
-        setErro('Erro ao criar conta. Tente outro e-mail.');
-      }
+      await cadastrarUsuario({ nome, email, senha, cpf });
+      setSucesso('Conta criada com sucesso! Faça login.');
+      setNome('');
+      setEmail('');
+      setSenha('');
+      setConfirmarSenha('');
+      setCpf('');
     } catch (err) {
-      setErro('Erro ao conectar com o servidor.');
+      setErro('Erro ao criar conta. Tente outro e-mail.');
     }
   };
 
@@ -59,6 +49,13 @@ function CadastroComponent() {
           placeholder="E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="CPF"
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
           required
         />
         <input

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { loginUsuario } from '../api/loginApi';
 
-function LoginPage() {
+function LoginComponent() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
@@ -9,19 +10,10 @@ function LoginPage() {
     e.preventDefault();
     setErro('');
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email, senha }),
-      });
-      if (response.ok) {
-        window.location.href = '/eventos';
-      } else {
-        setErro('E-mail ou senha inválidos.');
-      }
+      await loginUsuario(email, senha);
+      window.location.href = '/eventos';
     } catch (err) {
-      setErro('Erro ao conectar com o servidor.');
+      setErro(err.message || 'Erro ao conectar com o servidor.');
     }
   };
 
@@ -50,4 +42,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginComponent;
